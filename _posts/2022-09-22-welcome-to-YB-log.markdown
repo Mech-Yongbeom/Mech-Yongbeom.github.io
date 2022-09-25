@@ -10,3 +10,5 @@ toc_sticky: true
 
 **Hello world**
 this is my first blog post.
+
+![google](/assets/images/google_img.png)
