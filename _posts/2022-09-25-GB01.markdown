@@ -1,0 +1,94 @@
+---
+title:  "MAC 개발환경 에서 Github Blog 구현하기"
+date:   2022-09-25
+categories: Github_Blog
+toc: true
+toc_sticky: true
+---
+
+본 글은 MAC에 `jekyll`를 통해서 로컬 웹페이지를 구동하는 법을 소개한다. jekyll의 설치 및 구동을 위한 기본 프로그램에서 부터 시작한다.
+<br><br>
+
+# 1. home-brew 설치하기
+
+`홈브류(home-brew)`는 맥OS 용 패키지 관리 어플리케이션이다. 터미널 환경에서 다양한 어플리케이션을 명령어만으로 다운로드 및 설치할 수 있다. 리눅스 환경에서의 'apt-get'과 동일한 기능을 수행한다.
+```
+>> ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+홈브류의 설치는 맥의 터미널에서 위의 명령어를 입력하여 수행한다.
+
+```
+>> which brew
+zsh: command not found: brew
+```
+설치가 완료된 이후에도, `brew` 명령어를 호출하면 경로를 찾을 수 없다는 경고문을 볼 수 있다.
+
+
+```
+>> vi ~/.zshrc
+>> eval $(/opt/homebrew/bin/brew shellenv)
+```
+이는 brew의 경로가 shell 환경변수에 추가되지 않았기 때문이다. vi 에디터를 이용하여 '.zshrc' 파일에 brew의 경로를 기본값으로 추가(M1 프로세서) 해주면 터미널을 구동할때마다 추가해줄 필요가 없다.  vi에서 삽입은 'i' 키를 통해서, 저장 및 종료는 ':wq'를 통해서 수행할 수 있다.
+
+```
+>> which brew
+/opt/homebrew/bin/brew
+```
+환경변수를 추가한 뒤에 brew 명령어를 제대로 인식하는 것을 확인할 수 있다.
+<br><br>
+
+# 2. 기본 프로그램 설치하기
+```
+>> xcode-select --install
+>> brew install gcc
+```
+홈브류의 설치가 완료되면, ruby 및 jekyll의 설치를 위한 기본 프로그램을 설치한다. CML(Command Line Tools)와 GCC는 기본적으로 설치되어 있는 프로그램이지만, 확실하게 한번 더 짚고 넘어가는 것이 좋다.
+<br><br>
+
+# 3. ruby 설치하기
+```
+>> brew install rbenv ruby-build ruby-dev
+
+>> echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+>> echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+```
+`루비(ruby)`는 인터프리터 형식의 프로그램 언어 중 하나로써 jekyll를 설치 및 구동하기 위해서 필요하다. `rbenv`는 루비의 버전을 각 환경에 맞춰서 쉽게 전환할 수 있도록 도와주는 패키지이다. 설치 이후에 echo를 통해서 '.bashrc'에 경로 및 초기화 명령을 기본값으로 추가해준다.
+
+```
+>> rbenv install -l
+설치 가능 버전 출력...
+>> rbenv install 2.7.6
+>> echo 'export PATH="$HOME/.gem/ruby/X.X.0/bin:$PATH"' >> ~/.bash_profile
+```
+
+rbenv의 설치가 끝나면 지금 시점에서 설치 가능한 ruby의 버전을 확인한다. 필자는 2.7.6 버전으로 설치하여 진행했다. 그 뒤에 ruby의 경로를 bash_profile에 추가한다. 경로 중 X.X.0에는 ruby의 버전을 입력해준다. (필자의 경우 2.7.0)
+
+``` 
+>> rbenv versions
+* 2.7.6 [설치된 버전 출력]
+>> rbenv global 2.7.6
+```
+rbenv를 통해 설치한 ruby의 버전을 global로 지정하여, 현재 환경에서 실행되는 버전을 선언한다.
+<br><br>
+# 4. jekyll 설치 및 실행하기
+```
+>> gem install --user-install bundler jekyll
+>> rbenv rehash
+```
+마지막으로, `jekyll`의 설치만 남았다. `bundler`는 ruby의 의존성 관리 도구이다. 설치 이후애 rehash를 통해서 해쉬 재정렬을 수행한다.
+
+```
+>> cd '파일 경로'
+>> bundler install
+>> bundle exec jekyll serve
+       Jekyll Feed: Generating feed for posts
+                    done in 0.634 seconds.
+    Server address: http://127.0.0.1:4000
+  Server running... press ctrl-c to stop.
+```
+jekyll의 설치가 완료되면, 웹사이트의 테마가 저장된 폴더로 현재 디렉토리를 설정하여 bundler install 뒤에 서버를 구동한다. 로컬 웹사이트는 웹 브라우저에서 'https://127.0.0.1:4000'으로 접속할 수 있다.
+<br><br>
+
+# 5. 결과
+![result](/assets/images/GB01_img01.png)
+결과적으로 위의 방법을 통해서 jekyll로 미리 웹사이트의 모습을 로컬 환경에서 확인한 뒤에, github의 저장소로 commit하여 블로그를 업데이트 할 수 있다.
