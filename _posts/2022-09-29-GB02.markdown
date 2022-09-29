@@ -1,0 +1,33 @@
+---
+title:  "MAC 개발환경에서 Github 사용하기"
+date:   2022-09-29
+categories: Github_Blog
+toc: true
+toc_sticky: true
+---
+
+본 글은 MAC에서 Github 블로그를 이용하기 위한 Github 이용법을 소개한다. 터미널 환경에서 `git` 명령어를 이용해서 다양한 작업을 수행한다.
+<br><br>
+
+# 1. Github란?
+깃허브(Github)를 이해하기 위해서는 먼저 git의 의미를 알아야한다. 
+<p align="center">
+  <img src="/assets/images/GB02/img01.png">
+</p> 
+`git`이란 **'분산형 버전관리 시스템'**을 의미한다. 우리가 문서 파일들을 저장하는 경우, 보통 아래의 사진처럼 버전을 나누어 저장한다. 문서의 용량 10MB라면 총 5개의 버전이니까 50MB의 저장 공간이 필요하다. 이는 굉장히 비효율적인 방식으로 git은 각 버전들간의 **변경사항**만을 저장하여 버전을 관리한다.
+
+`github`는 git을 인터넷 서버 상에 저장하는 **원격저장소** 역할을 수행한다. 그 덕분에 프로젝트를 진행함에 있어서 다른 사람들과 코드 공유를 더욱 수월하게 수행할 수 있다.
+<br><br>
+
+# 2. Github 연동하기
+
+```
+>> cd [작업경로]
+>> git
+>> git remote
+>> git clone
+>> git add
+>> git push
+>> git pull
+```
+작성중...
