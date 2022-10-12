@@ -90,5 +90,5 @@ jekyll의 설치가 완료되면, 웹사이트의 테마가 저장된 폴더로 
 <br><br>
 
 # 5. 결과
-![result](/assets/images/GB01/img01.png)
+![result](/assets/images/GB01/img01.png){: .align-center}
 결과적으로 위의 방법을 통해서 jekyll로 미리 웹사이트의 모습을 로컬 환경에서 확인한 뒤에, github의 저장소로 commit하여 블로그를 업데이트 할 수 있다.
